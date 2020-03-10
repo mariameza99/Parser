@@ -13,7 +13,7 @@ import java.util.Stack;
 
 /**
  *
- * @author luisangel
+ * @author luisange, mariameza, romanmontgomery
  */
 public class ctrl implements ActionListener{
 
@@ -24,7 +24,8 @@ public class ctrl implements ActionListener{
     Stack<String> pila = new Stack<String>(); 
     Stack<String> pila2 = new Stack<String>();
     Stack<String> pila3 = new Stack<String>();
-    String tabla_sintactica[][] = new String[16][21];
+    String tabla_sintactica[][] = new String[17][21];
+    String primeros[][]= new String[20][2];
     String X = "";
     String K = "";
     int a = 0;
@@ -56,11 +57,11 @@ public class ctrl implements ActionListener{
         tabla_sintactica[0][13] = "V";
         tabla_sintactica[0][14] = "L";
         tabla_sintactica[0][15] = "M";
-        tabla_sintactica[0][15] = "N";
-        tabla_sintactica[0][16] = "O";
-        tabla_sintactica[0][17] = "P";
-        tabla_sintactica[0][18] = "R";
-        tabla_sintactica[0][19] = "T";
+        tabla_sintactica[0][16] = "N";
+        tabla_sintactica[0][17] = "O";
+        tabla_sintactica[0][18] = "P";
+        tabla_sintactica[0][19] = "R";
+        tabla_sintactica[0][20] = "T";
         
         tabla_sintactica[1][0] = "i";
         tabla_sintactica[2][0] = "r";
@@ -75,8 +76,9 @@ public class ctrl implements ActionListener{
         tabla_sintactica[11][0] = ")";
         tabla_sintactica[12][0] = "'";
         tabla_sintactica[13][0] = "d";
-        tabla_sintactica[14][0] = "*";
-        tabla_sintactica[15][0] = "$";
+        tabla_sintactica[14][0] = "a";
+        tabla_sintactica[15][0] = "*";
+        tabla_sintactica[16][0] = "$";
         
         tabla_sintactica[1][2] = "B";
         tabla_sintactica[1][3] = "CD";
@@ -90,7 +92,7 @@ public class ctrl implements ActionListener{
         
         tabla_sintactica[2][6] = "z";
         tabla_sintactica[2][15] = "NO";
-        tabla_sintactica[2][16] = "G";
+        tabla_sintactica[2][16] = "r";
         
         tabla_sintactica[3][1] = "sAfFJ";
         
@@ -130,17 +132,59 @@ public class ctrl implements ActionListener{
         tabla_sintactica[13][17] = "T";
         tabla_sintactica[13][20] = "d";
         
-        tabla_sintactica[14][2] = "*";
         tabla_sintactica[14][19] = "a";
         
-        tabla_sintactica[15][4] = "z";
-        tabla_sintactica[15][6] = "z";
-        tabla_sintactica[15][8] = "z";
-        tabla_sintactica[15][10] = "z";
-        tabla_sintactica[15][11] = "z";
-        tabla_sintactica[15][13] = "z";
+        tabla_sintactica[15][2] = "*";
+        
+        tabla_sintactica[16][4] = "z";
+        tabla_sintactica[16][6] = "z";
+        tabla_sintactica[16][8] = "z";
+        tabla_sintactica[16][10] = "z";
+        tabla_sintactica[16][11] = "z";
+        tabla_sintactica[16][13] = "z";
         
         
+        primeros[0][0] = "Q";
+        primeros[1][0] = "A";
+        primeros[2][0] = "B";
+        primeros[3][0] = "D";
+        primeros[4][0] = "C";
+        primeros[5][0] = "E";
+        primeros[6][0] = "F";
+        primeros[7][0] = "H";
+        primeros[8][0] = "G";
+        primeros[9][0] = "I";
+        primeros[10][0] = "J";
+        primeros[11][0] = "K";
+        primeros[12][0] = "V";
+        primeros[13][0] = "L";
+        primeros[14][0] = "M";
+        primeros[15][0] = "N";
+        primeros[16][0] = "O";
+        primeros[17][0] = "P";
+        primeros[18][0] = "R";
+        primeros[19][0] = "T";
+        
+        primeros[0][1] = "s";
+        primeros[1][1] = "i";
+        primeros[2][1] = "i";
+        primeros[3][1] = "a";
+        primeros[4][1] = "i";
+        primeros[5][1] = "s";
+        primeros[6][1] = "i";
+        primeros[7][1] = ",";
+        primeros[8][1] = "i";
+        primeros[9][1] = "i";
+        primeros[10][1] = "w";
+        primeros[11][1] = "i";
+        primeros[12][1] = "y";
+        primeros[13][1] = "i";
+        primeros[14][1] = "r";
+        primeros[15][1] = "r";
+        primeros[16][1] = "i";
+        primeros[17][1] = "y";
+        primeros[18][1] = ".";
+        primeros[19][1] = "d";
         
     }
     
@@ -150,7 +194,7 @@ public class ctrl implements ActionListener{
         this.view.errores.setText("2:200 Sin error.");
         
         texto = this.view.entrada.getText();
-        lineas = new String [30];
+        lineas = new String [50];
         
         for (int i = 0; i < lineas.length; i++) {
             lineas [i] = "";
@@ -163,13 +207,17 @@ public class ctrl implements ActionListener{
         X="";
         K="";
         a = 0;
+        APUN = "";
+        f = true;
+        comillas = false;
+        constant = "";
         
         tabla_lexica();
         analisis();
     }
     
     
-    /*Este metodo analziar toda la entrada con REGEX sepandando por lineas e insertando en la TABLA LEXICA
+    /*Este metodo analiza toda la entrada con REGEX sepandando por lineas e insertando en la TABLA LEXICA
     cada elemento que se encuentra, si hay algún elemento invalido, lo mostrará y terminara la ejecución*/
     public void tabla_lexica () {
         int cont = 0;
@@ -177,7 +225,6 @@ public class ctrl implements ActionListener{
         
         int linea = 1;
         
-        //Pattern p1 = Pattern.compile("([(\\)\\;\\+\\-\\–\\*\\/]|([0-9A-Za-z]*)+([,\\.\\%\\_\\-]*)?[0-9]+([,\\.\\%\\_\\-\\[0-9A-Za-z]*)?([,\\.\\%\\-\\_\\[0-9A-Za-z]*)|([A-Za-z]*)+([,\\.\\%\\_\\-]*)?[A-Z0-9]+([,\\.\\%\\_\\-\\[0-9A-Za-z]*)?([,\\.\\%\\-\\_\\[0-9A-Za-z]*)|[!\\#\\$\\%\\&\\?\\¿\\¡\\_]|[a-zA-Z])");
         Pattern p1 = Pattern.compile("(([>\\<])+([=])|[(\\)\\;\\+\\-\\–\\*\\/\\'\\’\\‘\\,\\.\\>\\<\\=]|([@0-9A-Za-z]*)+([#\\.\\%\\_\\-]*)?[0-9]+([#\\%\\_\\-\\[0-9A-Za-z]*)?([#\\%\\-\\_\\[0-9A-Za-z]*)"
                 + "|([@A-Za-z]*)+([#\\%\\_\\-]*)?[A-Za-z0-9]+([#\\%\\_\\-\\[0-9A-Za-z]*)?([#\\%\\-\\_\\[0-9A-Za-z]*)|[!\\$\\%\\&\\?\\¿\\¡\\_]|[a-zA-Z])");
         
@@ -200,7 +247,7 @@ public class ctrl implements ActionListener{
                         }
                         
                     }
-                    tabla_lexica.add(m2.group()); //tal vez necesita el algoritmo de comentarios de varias palabras
+                    tabla_lexica.add(m2.group());
                     
                 } else if(m2.group().matches("[+\\-\\–\\*\\/]")){            //Operadores
                     tabla_lexica.add(m2.group());
@@ -250,8 +297,6 @@ public class ctrl implements ActionListener{
         pila.add("Q");
         tabla_lexica.add("$");
         APUN = tabla_lexica.peek();
-        System.out.println(APUN);
-        System.out.println(tabla_sintactica[2][15]);
         
         do {
             X = pila.pop();
@@ -260,11 +305,12 @@ public class ctrl implements ActionListener{
             System.out.println("K = " + K);
             if (terminal(X) || X.equals("$")) {
                 if ( X.equals(K)) {
-//                    System.out.print("X = " + X + "  ----  ");
-//                    System.out.println("K = " + K);
+                    //System.out.print("X = " + X + "  ----  ");
+                    //System.out.println("K = " + K);
                     tabla_lexica.remove();
                 } else {
-                    error();
+                    System.out.println(X + " --" + K);
+                    error(X);
                     System.out.println("Error 1");
                     break;
                 }
@@ -273,10 +319,9 @@ public class ctrl implements ActionListener{
                 if (produccion != null) {
                     if (produccion != "z") {
                         insertar(produccion);
-                    } else {
                     }
                 } else {
-                    error();
+                    error(X);
                     System.out.println("Error 2");
                     break;
                 }
@@ -292,19 +337,19 @@ public class ctrl implements ActionListener{
     public String Produc (String x, String k) {
         
         int ka = 0;
-        for (int i = 0; i < 16; i ++) {
+        for (int i = 0; i < 17; i ++) {
             if (k.equals(tabla_sintactica[i][0])) {
                 ka = i;
             }
         }
         
         int equis = 0;
-        for (int i = 0; i < 20; i ++) {
+        for (int i = 0; i < 21; i ++) {
             if (x.equals(tabla_sintactica[0][i])) {
                 equis = i;
             }
         }
-        
+        //System.out.println("Producto de x: " + equis + " k: " + ka);
         String result = tabla_sintactica[ka][equis];
         return result;
     }
@@ -337,7 +382,7 @@ public class ctrl implements ActionListener{
     
     
     
-    //ESTE METODO SEPARA LAS PALABRAS RESERVADAS DE TODOS LOS DEMAS ELEMENTOS, SI NO ES PALABRA RESERVADA DEVUELVE AUTOMATICAMENTE E LTOKEN, 
+    //ESTE METODO SEPARA LAS PALABRAS RESERVADAS DE TODOS LOS DEMAS ELEMENTOS, SI NO ES PALABRA RESERVADA DEVUELVE AUTOMATICAMENTE ELTOKEN, 
     //SI ES PALABRA RESERVADA, ANALIZA QUE PALABRA ES Y DEVUELVE EL TOKEN CORRESPONDIENTE
     public String corrector () {
         String aux = tabla_lexica.peek();
@@ -407,32 +452,37 @@ public class ctrl implements ActionListener{
     
     
     
-    
-    public void error() {
-        String lineas [] = texto.split("\n");
-        int linea = 1;
-        for (int i = 0; i < lineas.length; i ++) {
-            if (delimitador(lineas[i]) == false) {
-                if (a == 1) {
-                    this.view.errores.setText("2:201 Error Línea " + (i+1) + ". Falta delimitador. * ( * Expected.");
-                    break;
-                } else if (a == 2) {
-                    this.view.errores.setText("2:201 Error Línea " + (i+1) + ". Falta delimitador. * ) * Expected.");
-                    break;
-                } else {
-                    this.view.errores.setText("2:201 Error Línea " + (i+1) + ". Falta delimitador. * ; * Expected.");
-                    break;
-                } 
-            }
-            if (constante(lineas[i]) == false ) {
-                this.view.errores.setText("2:203 Error Línea " + (i+1) + ". Falta identificador / constante.");
-                break;
-            }
-            if (operador(lineas[i]) == false ) {
-                this.view.errores.setText("2:202 Error Línea " + (i+1) + ". Falta operador.");
-                break;
+    public void error(String dato) {
+        System.out.println(dato);
+        
+        String prim = "";
+        for (int i = 0; i < 20; i++) {
+            if (dato.equals(primeros[i][0])) {
+                prim = primeros[i][1];
             }
         }
+        
+        switch(prim) {
+            case "s": this.view.errores.setText("2:201 Se esperaba palabra reservada.");
+                break;
+            case "i": this.view.errores.setText("2:204 Se esperaba identificador.");
+                break;
+            case ",": this.view.errores.setText("2:205 Se esperaba delimitador.");
+                break;
+            case ".": this.view.errores.setText("2:205 Se esperaba delimitador.");
+                break;
+            case "w": this.view.errores.setText("2:201 Se esperaba palabra reservada.");
+                break;
+            case "y": this.view.errores.setText("2:201 Se esperaba palabra reservada.");
+                break;
+            case "r": this.view.errores.setText("2:208 Se esperaba palabra operador relacional.");
+                break;
+            case "a": this.view.errores.setText("2:206 Se esperaba constante.");
+                break;
+            case "d": this.view.errores.setText("2:206 Se esperaba constante.");
+                break;
+        }
+        
     }
     
     public boolean delimitador(String t){
