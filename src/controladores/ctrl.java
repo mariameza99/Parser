@@ -25,10 +25,11 @@ public class ctrl implements ActionListener{
     Stack<String> pila2 = new Stack<String>();
     Stack<String> pila3 = new Stack<String>();
     String tabla_sintactica[][] = new String[17][21];
-    String primeros[][]= new String[20][2];
+    String primeros[][]= new String[21][2];
     String X = "";
     String K = "";
-    int a = 0;
+    String auxLinea = "";
+    int lineaError = 0;
     String APUN = "";
     boolean f = true;
     private boolean comillas = false;
@@ -164,6 +165,7 @@ public class ctrl implements ActionListener{
         primeros[17][0] = "P";
         primeros[18][0] = "R";
         primeros[19][0] = "T";
+        primeros[20][0] = "f";
         
         primeros[0][1] = "s";
         primeros[1][1] = "i";
@@ -185,6 +187,7 @@ public class ctrl implements ActionListener{
         primeros[17][1] = "y";
         primeros[18][1] = ".";
         primeros[19][1] = "d";
+        primeros[20][1] = "f";
         
     }
     
@@ -206,7 +209,7 @@ public class ctrl implements ActionListener{
         tabla_lexica.clear();
         X="";
         K="";
-        a = 0;
+        //a = 0;
         APUN = "";
         f = true;
         comillas = false;
@@ -300,18 +303,18 @@ public class ctrl implements ActionListener{
         
         do {
             X = pila.pop();
-            System.out.print("X = " + X + "  ----  ");
+            //System.out.print("X = " + X + "  ----  ");
             K = corrector();
-            System.out.println("K = " + K);
+            //System.out.println("K = " + K);
             if (terminal(X) || X.equals("$")) {
                 if ( X.equals(K)) {
                     //System.out.print("X = " + X + "  ----  ");
                     //System.out.println("K = " + K);
                     tabla_lexica.remove();
                 } else {
-                    System.out.println(X + " --" + K);
+                    //System.out.println(X + " --" + K);
                     error(X);
-                    System.out.println("Error 1");
+                    //System.out.println("Error 1");
                     break;
                 }
             } else {
@@ -402,44 +405,64 @@ public class ctrl implements ActionListener{
                 String pal = m2.group();
                 switch (pal) {
                     case "SELECT": aux = "s";
+                                    auxLinea = m2.group();
                         break;
                     case "FROM": aux = "f";
+                                    auxLinea = m2.group();
                         break;
                     case "WHERE": aux = "w";
+                                    auxLinea = m2.group();
                         break;
                     case "IN": aux = "n";
+                                    auxLinea = m2.group();
                         break;
                     case "AND": aux = "y";
+                                    auxLinea = m2.group();
                         break;
                     case "OR": aux = "o";
+                                    auxLinea = m2.group();
                         break;
                     case "CREATE": aux = "c";
+                                    auxLinea = m2.group();
                         break;
                     case "TABLE": aux = "t";
+                                    auxLinea = m2.group();
                         break;
                     case "CHAR": aux = "h";
+                                    auxLinea = m2.group();
                         break;
                     case "NUMERIC": aux = "u";
+                                    auxLinea = m2.group();
                         break;
                     case "NOT": aux = "e";
+                                    auxLinea = m2.group();
                         break;
                     case "NULL": aux = "g";
+                                    auxLinea = m2.group();
                         break;
                     case "CONSTRAINT": aux = "b";
+                                    auxLinea = m2.group();
                         break;
                     case "KEY": aux = "k";
+                                    auxLinea = m2.group();
                         break;
                     case "PRIMARY": aux = "p";
+                                    auxLinea = m2.group();
                         break;
                     case "FOREIGN": aux = "j";
+                                    auxLinea = m2.group();
                         break;
                     case "REFERENCES": aux = "l";
+                                    auxLinea = m2.group();
                         break;
                     case "INSERT": aux = "m";
+                                    auxLinea = m2.group();
                         break;
                     case "INTO": aux = "q";
+                                    auxLinea = m2.group();
                         break;
                     case "VALUES": aux = "v";
+                                    auxLinea = m2.group();
                         break;
                 }
             } else {
@@ -453,71 +476,99 @@ public class ctrl implements ActionListener{
     
     
     public void error(String dato) {
-        System.out.println(dato);
+        error2();
+        //System.out.println(dato);
         
         String prim = "";
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 21; i++) {
             if (dato.equals(primeros[i][0])) {
                 prim = primeros[i][1];
             }
         }
         
         switch(prim) {
-            case "s": this.view.errores.setText("2:201 Se esperaba palabra reservada.");
+            case "s": this.view.errores.setText("2:201 " + "Linea " + lineaError + ".Se esperaba palabra reservada.");
                 break;
-            case "i": this.view.errores.setText("2:204 Se esperaba identificador.");
+            case "i": this.view.errores.setText("2:204 " + "Linea " + lineaError + ".Se esperaba identificador.");
                 break;
-            case ",": this.view.errores.setText("2:205 Se esperaba delimitador.");
+            case ",": this.view.errores.setText("2:205 " + "Linea " + lineaError + ".Se esperaba delimitador.");
                 break;
-            case ".": this.view.errores.setText("2:205 Se esperaba delimitador.");
+            case ".": this.view.errores.setText("2:205 " + "Linea " + lineaError + ".Se esperaba delimitador.");
                 break;
-            case "w": this.view.errores.setText("2:201 Se esperaba palabra reservada.");
+            case "w": this.view.errores.setText("2:201 " + "Linea " + lineaError + ".Se esperaba palabra reservada.");
                 break;
-            case "y": this.view.errores.setText("2:201 Se esperaba palabra reservada.");
+            case "y": this.view.errores.setText("2:201 " + "Linea " + lineaError + ".Se esperaba palabra reservada.");
                 break;
-            case "r": this.view.errores.setText("2:208 Se esperaba palabra operador relacional.");
+            case "r": this.view.errores.setText("2:208 " + "Linea " + lineaError + ".Se esperaba palabra operador relacional.");
                 break;
-            case "a": this.view.errores.setText("2:206 Se esperaba constante.");
+            case "a": this.view.errores.setText("2:206 " + "Linea " + lineaError + ".Se esperaba constante.");
                 break;
-            case "d": this.view.errores.setText("2:206 Se esperaba constante.");
+            case "d": this.view.errores.setText("2:206 " + "Linea " + lineaError + ".Se esperaba constante.");
+                break;
+            case "f": this.view.errores.setText("2:201 " + "Linea " + lineaError + ".Se esperaba palabra reservada.");
                 break;
         }
         
     }
     
-    public boolean delimitador(String t){
-        pila2.clear();
+    
+    
+    public void error2() {
+        System.out.println(auxLinea);
+        String lineas [] = texto.split("\n");
+        int linea = 1;
         
-        char arreglo[] = t.toCharArray();
-        
-        for(int i=0; i<arreglo.length; i++){
-            
-            if (arreglo[i] == '(') {
-                pila2.push("(");
-                
-            } else if (arreglo[i] == ')') {
-                if(!pila2.empty()){
-                    pila2.pop();
-                }else{
-                    a = 1; //Falta (
-                    return false; 
+        for (int i = 0;i<lineas.length;i++) {
+            Pattern p1 = Pattern.compile("(([>\\<])+([=])|[(\\)\\;\\+\\-\\–\\*\\/\\'\\’\\‘\\,\\.\\>\\<\\=]|([@0-9A-Za-z]*)+([#\\.\\%\\_\\-]*)?[0-9]+([#\\%\\_\\-\\[0-9A-Za-z]*)?([#\\%\\-\\_\\[0-9A-Za-z]*)"
+                    + "|([@A-Za-z]*)+([#\\%\\_\\-]*)?[A-Za-z0-9]+([#\\%\\_\\-\\[0-9A-Za-z]*)?([#\\%\\-\\_\\[0-9A-Za-z]*)|[!\\$\\%\\&\\?\\¿\\¡\\_]|[a-zA-Z])");
+            Matcher m2 = p1.matcher(lineas[i]);
+            while (m2.find()) {
+                if(m2.group().matches(auxLinea)) {
+                    lineaError = linea;
                 }
-            } else if (arreglo[i] == ';') {
-                pila2.push(";");
             }
+            linea++;
         }
-        
-        if (pila2.contains("(") ){
-            a = 2; // falta )
-            return false;
-        } else if (pila2.empty()) {
-            a = 3; // falta ;
-            return false;
-        } else {
-            return true;
-        }
-        
     }
+    
+    public boolean evaluador (String t) {
+        
+        return true;
+    }
+    
+//    public boolean delimitador(String t){
+//        pila2.clear();
+//        
+//        char arreglo[] = t.toCharArray();
+//        
+//        for(int i=0; i<arreglo.length; i++){
+//            
+//            if (arreglo[i] == '(') {
+//                pila2.push("(");
+//                
+//            } else if (arreglo[i] == ')') {
+//                if(!pila2.empty()){
+//                    pila2.pop();
+//                }else{
+//                    a = 1; //Falta (
+//                    return false; 
+//                }
+//            } else if (arreglo[i] == ';') {
+//                pila2.push(";");
+//            }
+//        }
+//        
+//        if (pila2.contains("(") ){
+//            a = 2; // falta )
+//            return false;
+//        } else if (pila2.empty()) {
+//            a = 3; // falta ;
+//            return false;
+//        } else {
+//            return true;
+//        }
+//        
+//    }
     
     public boolean constante(String t){
         

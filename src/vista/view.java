@@ -56,9 +56,9 @@ public class view extends javax.swing.JFrame {
         escanear.setBounds(17, 198, 99, 29);
 
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jLabel8.setText("María Meza & Luis Benitez | IDS T.V.");
+        jLabel8.setText("Equipo 2 Román, María y Luis | IDS T.V.");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(17, 245, 287, 22);
+        jLabel8.setBounds(17, 245, 320, 22);
 
         error.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         getContentPane().add(error);

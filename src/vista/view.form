@@ -82,11 +82,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Mar&#xed;a Meza &amp; Luis Benitez | IDS T.V."/>
+        <Property name="text" type="java.lang.String" value="Equipo 2 Rom&#xe1;n, Mar&#xed;a y Luis | IDS T.V."/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="17" y="245" width="-1" height="-1"/>
+          <AbsoluteConstraints x="17" y="245" width="320" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
