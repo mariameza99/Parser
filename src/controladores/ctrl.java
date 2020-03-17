@@ -25,7 +25,7 @@ public class ctrl implements ActionListener{
     Stack<String> pila2 = new Stack<String>();
     Stack<String> pila3 = new Stack<String>();
     String tabla_sintactica[][] = new String[17][21];
-    String primeros[][]= new String[21][2];
+    String primeros[][]= new String[22][2];
     String X = "";
     String K = "";
     String auxLinea = "";
@@ -166,6 +166,7 @@ public class ctrl implements ActionListener{
         primeros[18][0] = "R";
         primeros[19][0] = "T";
         primeros[20][0] = "f";
+        primeros[21][0] = "i";
         
         primeros[0][1] = "s";
         primeros[1][1] = "i";
@@ -188,6 +189,7 @@ public class ctrl implements ActionListener{
         primeros[18][1] = ".";
         primeros[19][1] = "d";
         primeros[20][1] = "f";
+        primeros[21][1] = "i";
         
     }
     
@@ -303,9 +305,9 @@ public class ctrl implements ActionListener{
         
         do {
             X = pila.pop();
-            //System.out.print("X = " + X + "  ----  ");
+            System.out.print("X = " + X + "  ----  ");
             K = corrector();
-            //System.out.println("K = " + K);
+            System.out.println("K = " + K);
             if (terminal(X) || X.equals("$")) {
                 if ( X.equals(K)) {
                     //System.out.print("X = " + X + "  ----  ");
@@ -314,7 +316,7 @@ public class ctrl implements ActionListener{
                 } else {
                     //System.out.println(X + " --" + K);
                     error(X);
-                    //System.out.println("Error 1");
+                    System.out.println("Error 1");
                     break;
                 }
             } else {
@@ -478,9 +480,10 @@ public class ctrl implements ActionListener{
     public void error(String dato) {
         error2();
         //System.out.println(dato);
-        
+            System.out.println(dato);
         String prim = "";
-        for (int i = 0; i < 21; i++) {
+        
+        for (int i = 0; i < 22; i++) {
             if (dato.equals(primeros[i][0])) {
                 prim = primeros[i][1];
             }
@@ -506,6 +509,8 @@ public class ctrl implements ActionListener{
             case "d": this.view.errores.setText("2:206 " + "Linea " + lineaError + ".Se esperaba constante.");
                 break;
             case "f": this.view.errores.setText("2:201 " + "Linea " + lineaError + ".Se esperaba palabra reservada.");
+                break;
+            default: this.view.errores.setText("2:201 " + "Linea " + lineaError + ".Error sintactico");
                 break;
         }
         
