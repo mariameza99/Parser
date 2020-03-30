@@ -24,7 +24,7 @@ public class ctrl implements ActionListener{
     Stack<String> pila = new Stack<String>(); 
     Stack<String> pila2 = new Stack<String>();
     Stack<String> pila3 = new Stack<String>();
-    String tabla_sintactica[][] = new String[17][21];
+    String tabla_sintactica[][] = new String[26][37];
     String primeros[][]= new String[22][2];
     String X = "";
     String K = "";
@@ -64,6 +64,25 @@ public class ctrl implements ActionListener{
         tabla_sintactica[0][19] = "R";
         tabla_sintactica[0][20] = "T";
         
+        //Nuevas reglas
+        tabla_sintactica[0][21] = "C";
+        tabla_sintactica[0][22] = "B";
+        tabla_sintactica[0][23] = "A";
+        tabla_sintactica[0][24] = "D";
+        tabla_sintactica[0][25] = "E";
+        tabla_sintactica[0][26] = "F";
+        tabla_sintactica[0][27] = "G";
+        tabla_sintactica[0][28] = "H";
+        tabla_sintactica[0][29] = "J";
+        tabla_sintactica[0][30] = "K";
+        tabla_sintactica[0][31] = "L";
+        tabla_sintactica[0][32] = "I";
+        tabla_sintactica[0][33] = "M";
+        tabla_sintactica[0][34] = "O";
+        tabla_sintactica[0][35] = "P";
+        tabla_sintactica[0][36] = "N";
+        
+        
         tabla_sintactica[1][0] = "i";
         tabla_sintactica[2][0] = "r";
         tabla_sintactica[3][0] = "s";
@@ -72,14 +91,25 @@ public class ctrl implements ActionListener{
         tabla_sintactica[6][0] = "n";
         tabla_sintactica[7][0] = "y";
         tabla_sintactica[8][0] = "o";
-        tabla_sintactica[9][0] = ",";
-        tabla_sintactica[10][0] = ".";
-        tabla_sintactica[11][0] = ")";
-        tabla_sintactica[12][0] = "'";
-        tabla_sintactica[13][0] = "d";
-        tabla_sintactica[14][0] = "a";
-        tabla_sintactica[15][0] = "*";
-        tabla_sintactica[16][0] = "$";
+        tabla_sintactica[9][0] = "c";
+        tabla_sintactica[10][0] = "h";
+        tabla_sintactica[11][0] = "u";
+        tabla_sintactica[12][0] = "e";
+        tabla_sintactica[13][0] = "b";
+        tabla_sintactica[14][0] = "p";
+        tabla_sintactica[15][0] = "j";
+        tabla_sintactica[16][0] = "l";
+        tabla_sintactica[17][0] = "m";
+        tabla_sintactica[18][0] = ",";
+        tabla_sintactica[19][0] = ".";
+        tabla_sintactica[20][0] = ")";
+        tabla_sintactica[21][0] = "'";
+        tabla_sintactica[22][0] = "d";
+        tabla_sintactica[23][0] = "a";
+        tabla_sintactica[24][0] = "*";
+        tabla_sintactica[25][0] = "$";
+        
+        
         
         tabla_sintactica[1][2] = "B";
         tabla_sintactica[1][3] = "CD";
@@ -115,35 +145,81 @@ public class ctrl implements ActionListener{
         tabla_sintactica[8][13] = "PK";
         tabla_sintactica[8][18] = "o";
         
-        tabla_sintactica[9][4] = ",B";
-        tabla_sintactica[9][6] = "z";
-        tabla_sintactica[9][8] = ",F";
-        tabla_sintactica[9][10] = "z";
+        tabla_sintactica[18][4] = ",B";
+        tabla_sintactica[18][6] = "z";
+        tabla_sintactica[18][8] = ",F";
+        tabla_sintactica[18][10] = "z";
         
-        tabla_sintactica[10][6] = ".i";
+        tabla_sintactica[19][6] = ".i";
         
-        tabla_sintactica[11][6] = "z";
-        tabla_sintactica[11][8] = "z";
-        tabla_sintactica[11][10] = "z";
-        tabla_sintactica[11][11] = "z";
-        tabla_sintactica[11][13] = "z";
+        tabla_sintactica[20][6] = "z";
+        tabla_sintactica[20][8] = "z";
+        tabla_sintactica[20][10] = "z";
+        tabla_sintactica[20][11] = "z";
+        tabla_sintactica[20][13] = "z";
         
-        tabla_sintactica[12][17] = "'R'";
+        tabla_sintactica[21][17] = "'R'";
         
-        tabla_sintactica[13][17] = "T";
-        tabla_sintactica[13][20] = "d";
+        tabla_sintactica[22][17] = "T";
+        tabla_sintactica[22][20] = "d";
         
-        tabla_sintactica[14][19] = "a";
+        tabla_sintactica[23][19] = "a";
         
-        tabla_sintactica[15][2] = "*";
+        tabla_sintactica[24][2] = "*";
         
-        tabla_sintactica[16][4] = "z";
-        tabla_sintactica[16][6] = "z";
-        tabla_sintactica[16][8] = "z";
-        tabla_sintactica[16][10] = "z";
-        tabla_sintactica[16][11] = "z";
-        tabla_sintactica[16][13] = "z";
+        tabla_sintactica[25][4] = "z";
+        tabla_sintactica[25][6] = "z";
+        tabla_sintactica[25][8] = "z";
+        tabla_sintactica[25][10] = "z";
+        tabla_sintactica[25][11] = "z";
+        tabla_sintactica[25][13] = "z";
         
+        //Nuevas reglas
+        tabla_sintactica[1][23] = "iD(d)EF";
+        tabla_sintactica[1][27] = "A";
+        
+        tabla_sintactica[9][21] = "cti(A);B";
+        tabla_sintactica[9][22] = "C";
+        tabla_sintactica[9][36] = "C";
+        
+        tabla_sintactica[10][24] = "h";
+        
+        tabla_sintactica[11][24] = "u";
+        
+        tabla_sintactica[12][25] = "eg";
+        
+        tabla_sintactica[13][27] = "H";
+        tabla_sintactica[13][28] = "biJ(i)K";
+        
+        tabla_sintactica[14][29] = "pk";
+        
+        tabla_sintactica[15][29] = "jk";
+        
+        tabla_sintactica[16][30] = "li(i)L";
+        
+        tabla_sintactica[17][22] = "I";
+        tabla_sintactica[17][32] = "mq4v(M);N";
+        tabla_sintactica[17][36] = "I";
+        
+        tabla_sintactica[18][25] = "z";
+        tabla_sintactica[18][26] = ",G";
+        tabla_sintactica[18][30] = ",H";
+        tabla_sintactica[18][30] = ",H";
+        tabla_sintactica[18][35] = ",M";
+        
+        tabla_sintactica[20][26] = "z";
+        tabla_sintactica[20][30] = "z";
+        tabla_sintactica[20][31] = "z";
+        tabla_sintactica[20][35] = "z";
+        
+        tabla_sintactica[21][33] = "OP";
+        tabla_sintactica[21][34] = "'a'";
+        
+        tabla_sintactica[22][33] = "OP";
+        tabla_sintactica[22][34] = "d";
+        
+        tabla_sintactica[25][22] = "z";
+        tabla_sintactica[25][36] = "z";
         
         primeros[0][0] = "Q";
         primeros[1][0] = "A";
@@ -310,11 +386,11 @@ public class ctrl implements ActionListener{
             System.out.println("K = " + K);
             if (terminal(X) || X.equals("$")) {
                 if ( X.equals(K)) {
-                    //System.out.print("X = " + X + "  ----  ");
-                    //System.out.println("K = " + K);
+                    System.out.print("X = " + X + "  ----  ");
+                    System.out.println("K = " + K);
                     tabla_lexica.remove();
                 } else {
-                    //System.out.println(X + " --" + K);
+                    System.out.println(X + " --" + K);
                     error(X);
                     System.out.println("Error 1");
                     break;
@@ -342,14 +418,14 @@ public class ctrl implements ActionListener{
     public String Produc (String x, String k) {
         
         int ka = 0;
-        for (int i = 0; i < 17; i ++) {
+        for (int i = 0; i < 26; i ++) {
             if (k.equals(tabla_sintactica[i][0])) {
                 ka = i;
             }
         }
         
         int equis = 0;
-        for (int i = 0; i < 21; i ++) {
+        for (int i = 0; i < 37; i ++) {
             if (x.equals(tabla_sintactica[0][i])) {
                 equis = i;
             }
@@ -377,7 +453,8 @@ public class ctrl implements ActionListener{
     //DETERMINA SI EL VALOR EXTRAIDO ES UN TERMINAL, SI EL VALOR QUE RECIBE EL METODO ES IGUAL A UNA REGLA, 
     //DEVUELVE FLASE, SI NO DEVUELVE TRUE.
     public boolean terminal (String x) {
-        if (x.equals("Q") || x.equals("A") || x.equals("B") || x.equals("D") || x.equals("C") || x.equals("E") || x.equals("F") || x.equals("H") || x.equals("G") || x.equals("I") || x.equals("J") || x.equals("K") || x.equals("V") || x.equals("L") || x.equals("M") || x.equals("N") || x.equals("O") || x.equals("P") || x.equals("R") || x.equals("T")) {
+        if (x.equals("Q") || x.equals("A") || x.equals("B") || x.equals("D") || x.equals("C") || x.equals("E") || x.equals("F") || x.equals("H") || x.equals("G") || x.equals("I") || x.equals("J") || x.equals("K") || x.equals("V") || x.equals("L") || x.equals("M") || x.equals("N") || x.equals("O") || x.equals("P") || x.equals("R") || 
+                x.equals("T")) {
             return false;
         } else {
             return true;
